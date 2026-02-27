@@ -1,0 +1,9 @@
+{
+  "buildCommand": "bash vercel_build.sh",
+  "outputDirectory": "build/web",
+  "installCommand": "git clone https://github.com/flutter/flutter.git --depth 1 -b stable /opt/flutter && /opt/flutter/bin/flutter doctor",
+  "framework": null,
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
