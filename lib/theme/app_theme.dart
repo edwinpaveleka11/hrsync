@@ -68,7 +68,44 @@ class AppColors {
 }
 
 class AppTheme {
+  // Helpers untuk pakai Google Fonts di level widget
+  // (menghindari bug const evaluation di google_fonts + Dart 3.11)
+  static TextStyle outfit(double size, FontWeight weight, [Color? color]) =>
+      GoogleFonts.outfit(
+        fontSize: size,
+        fontWeight: weight,
+        color: color ?? AppColors.textPrimary,
+      );
+
+  static TextStyle dmSans(double size,
+          [FontWeight weight = FontWeight.normal, Color? color]) =>
+      GoogleFonts.dmSans(
+        fontSize: size,
+        fontWeight: weight,
+        color: color ?? AppColors.textPrimary,
+      );
+
   static ThemeData get theme {
+    // ThemeData menggunakan TextStyle biasa (bukan GoogleFonts) untuk
+    // menghindari bug const evaluation FontWeight di Dart 3.11 / Flutter 3.41
+    const TextTheme textTheme = TextTheme(
+      displayLarge:
+          TextStyle(fontSize: 32, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+      displayMedium:
+          TextStyle(fontSize: 28, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+      headlineLarge:
+          TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+      headlineMedium:
+          TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+      headlineSmall:
+          TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+      titleLarge:
+          TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+      bodyLarge:  TextStyle(fontSize: 15, color: AppColors.textPrimary),
+      bodyMedium: TextStyle(fontSize: 14, color: AppColors.textSecondary),
+      bodySmall:  TextStyle(fontSize: 12, color: AppColors.textMuted),
+    );
+
     return ThemeData(
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(
@@ -76,50 +113,7 @@ class AppTheme {
         brightness: Brightness.light,
       ),
       scaffoldBackgroundColor: AppColors.background,
-      textTheme: GoogleFonts.dmSansTextTheme().copyWith(
-        displayLarge: GoogleFonts.outfit(
-          fontSize: 32,
-          fontWeight: FontWeight.w700,
-          color: AppColors.textPrimary,
-        ),
-        displayMedium: GoogleFonts.outfit(
-          fontSize: 28,
-          fontWeight: FontWeight.w700,
-          color: AppColors.textPrimary,
-        ),
-        headlineLarge: GoogleFonts.outfit(
-          fontSize: 24,
-          fontWeight: FontWeight.w700,
-          color: AppColors.textPrimary,
-        ),
-        headlineMedium: GoogleFonts.outfit(
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-          color: AppColors.textPrimary,
-        ),
-        headlineSmall: GoogleFonts.outfit(
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
-          color: AppColors.textPrimary,
-        ),
-        titleLarge: GoogleFonts.dmSans(
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-          color: AppColors.textPrimary,
-        ),
-        bodyLarge: GoogleFonts.dmSans(
-          fontSize: 15,
-          color: AppColors.textPrimary,
-        ),
-        bodyMedium: GoogleFonts.dmSans(
-          fontSize: 14,
-          color: AppColors.textSecondary,
-        ),
-        bodySmall: GoogleFonts.dmSans(
-          fontSize: 12,
-          color: AppColors.textMuted,
-        ),
-      ),
+      textTheme: textTheme,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
@@ -127,7 +121,7 @@ class AppTheme {
           elevation: 0,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          textStyle: GoogleFonts.dmSans(fontWeight: FontWeight.w600, fontSize: 14),
+          textStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
@@ -146,7 +140,7 @@ class AppTheme {
           borderSide: const BorderSide(color: AppColors.primary, width: 2),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        hintStyle: GoogleFonts.dmSans(color: AppColors.textMuted, fontSize: 14),
+        hintStyle: const TextStyle(color: AppColors.textMuted, fontSize: 14),
       ),
       cardTheme: CardThemeData(
         elevation: 0,

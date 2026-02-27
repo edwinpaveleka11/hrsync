@@ -1,4 +1,4 @@
-name: hr_management
+name: hr_sync
 description: HR Management System - Absensi, Penggajian, dan Cuti Karyawan
 publish_to: 'none'
 version: 1.0.0+1
@@ -14,7 +14,7 @@ dependencies:
 
   # UI & Icons
   cupertino_icons: ^1.0.6
-  google_fonts: ^6.3.0
+  google_fonts: ^8.0.2
   flutter_svg: ^2.0.9
   fl_chart: ^0.66.0
   
